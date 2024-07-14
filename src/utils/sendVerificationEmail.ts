@@ -12,6 +12,13 @@ export async function sendVerificationEmail(
 ): Promise<ApiResponse> {
     try {
 
+        await resend.emails.send({
+            from: 'onboarding@resend.dev',
+            to: email,
+            subject: 'True Talk |Verification code',
+            react: VerificationEmail({ username: username, otp: verifyCode }),
+        });
+
         return { success: true, message: "sent verification email successfully" }
     } catch (emailError) {
         console.error("Error in sending Verification email", emailError)
